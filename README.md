@@ -1,16 +1,19 @@
-# vagrant-mssql-express
+# vagrant-mssql-express 2012
 
-A Windows Server 2008 R2 VM with SQL Server Express 2008 R2 SP2 powered by Vagrant.
+A Windows Server 2012 R2 VM with SQL Server Express 2012 R2 SP2 powered by Vagrant.
+Its a fork of https://github.com/fgrehm/vagrant-mssql-express (MS SQL 2008) -> thanks to @fgrehm
 
 ## :warning: Heads up! :warning:
 
-This was just an experiment on how to set things up for a project I worked on the past, I'm not planning to keep this project up to date with latest Vagrant / SQL Server updates or making additional improvements to it.
+Same as fgrehm, its just an experiment on how to set things up for a project, I'm not planning to keep this project up to date with latest Vagrant / SQL Server updates or making additional improvements to it.
 
 ## Requirements
 
-* Vagrant 1.6+ (tested on 1.6.3)
-* VirtualBox 4.3+ (tested on 4.3.16 on an Ubuntu host)
+* Vagrant 2.0+ (tested on 2.0.1)
+* VirtualBox 5.2.4 (tested on 5.2.4 )
 * Around `12GB` of disk space (`3GB` for base box + `~9GB` for the VM)
+tested on a macOS High Sierra 10.13.4
+
 
 ## Base box information
 
@@ -22,15 +25,15 @@ This was just an experiment on how to set things up for a project I worked on th
 * The box has been created with [packer.io](http://www.packer.io/) using the
   templates made available [here](https://github.com/opentable/packer-images).
 
-More information can be found on the [box page at Vagrant Cloud](https://vagrantcloud.com/opentable/boxes/win-2008r2-standard-amd64-nocm).
+More information can be found on the [box page at Vagrant Cloud](https://app.vagrantup.com/opentable/boxes/win-2012r2-standard-amd64-nocm).
 
 ## Usage
 
 ```sh
-git clone https://github.com/fgrehm/vagrant-mssql-express.git
-cd vagrant-mssql-express
+git clone https://github.com/swmo/vagrant-mssql-express-2012.git
+cd vagrant-mssql-express-2012
 # Download SQL Server with Tools installer
-wget http://download.microsoft.com/download/0/4/B/04BE03CD-EAF3-4797-9D8D-2E08E316C998/SQLEXPRWT_x64_ENU.exe
+curl http://download.microsoft.com/download/8/D/D/8DD7BDBA-CEF7-4D8E-8C16-D9F69527F909/ENU/x64/SQLEXPRWT_x64_ENU.exe --output SQLEXPRWT_x64_ENU.exe
 vagrant up
 # Get a coffee as it will take a while for it to finish provisioning
 ```
@@ -40,27 +43,11 @@ Then test the connection with the SQL Server using `telnet 192.168.50.4 1433`
 
 ### Connecting to the SQL Server instance that runs inside the VM
 
-* IP / Host: `192.168.50.4`
+* IP / Host: `192.168.10.11`
 * Username: `sa`
 * Password: `#SAPassword!`
 
-If you are using Rails, apart from installing [tiny_tds](https://github.com/rails-sqlserver/tiny_tds)
-dependencies with `brew install freetds` / `apt-get install freetds-*` and
-the [activerecord-sqlserver-adapter gem](https://github.com/rails-sqlserver/activerecord-sqlserver-adapter),
-this is what you'll have on your `database.yml`:
-
-```yaml
-development:
-  adapter: sqlserver
-  database: <YOUR DB>
-  host: 192.168.50.4
-  username: sa
-  password: '#SAPassword!'
-```
-
-_More information on https://github.com/rails-sqlserver/activerecord-sqlserver-adapter/wiki/Using-TinyTDS_
-
-An example [Sinatra](http://www.sinatrarb.com) app can be found on [sinatra-app](sinatra-app).
+from unix / ubuntu you can use freetds to connect.
 
 ### Connecting to the VM using [Remote Desktop](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol) connections
 
@@ -73,7 +60,7 @@ first.  On Macs, you will need [Microsoft Remote Desktop](https://itunes.apple.c
 
 ## More information
 
-If you want to know more about how the provisioning process work, check out
+If you want to know more about how the provisioning process work, check out the blog from fgrehm
 [this blog post](http://helabs.com.br/blog/2014/09/19/mssql-on-vagrant/)
 
 ## Sponsor
@@ -83,7 +70,7 @@ This project was made possible thanks to [HE:labs](http://helabs.com.br/en)
 ## Resources
 
 Here's some links I collected along the way while building this:
-
+* http://www.hanselman.com/blog/DownloadSqlServerExpress.aspx
 * http://msdn.microsoft.com/en-us/library/ms144259%28v=SQL.100%29.aspx
 * http://technet.microsoft.com/en-us/library/ee176858.aspx
 * http://iqbalnaved.wordpress.com/2013/09/28/configuration-for-connecting-to-mssql-server-2008-on-virtualbox-guestos-from-ubuntu-12-04-hostos-using-pyodbc-3-0-8/
