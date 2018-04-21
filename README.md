@@ -38,7 +38,7 @@ vagrant up
 # Get a coffee as it will take a while for it to finish provisioning
 ```
 
-Then test the connection with the SQL Server using `telnet 192.168.50.4 1433`
+Then test the connection with the SQL Server using `telnet 192.168.10.11 1433`
 
 
 ### Connecting to the SQL Server instance that runs inside the VM
